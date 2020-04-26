@@ -12,9 +12,20 @@ app.set('view engine', 'pug');
 
 app.get('/', function(req, res) {
 	res.render('index', {
-		title: 'Hello World 4'
+		title: 'Hello World'
 	}); 
 }) 
+app.get('/users', function(req, res){
+	res.render('users/index', {
+		users: [
+			{id: 1, name: 'Tom'},
+			{id: 2, name: 'Cua'}
+		]
+	});
+})
+app.get('/products', function(req, res) {
+	res.send('Products loading...');
+})
 app.listen(3000, function() {
 	console.log('Server started on 3000...');
 })
