@@ -19,7 +19,7 @@ app.get('/users', function(req, res){
 	res.render('users/index', {
 		users: [
 			{id: 1, name: 'Tom'},
-			{id: 2, name: 'Cua'}
+			{id: 2, name: 'Ca'}
 		]
 	});
 })
