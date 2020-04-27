@@ -15,17 +15,25 @@ app.get('/', function(req, res) {
 		title: 'Hello World'
 	}); 
 }) 
+
+var users = [
+	{id: 1, name: 'Tom'},
+	{id: 2, name: 'Ca'},
+	{id: 3, name: 'Cua'}
+];
 app.get('/users', function(req, res){
 	res.render('users/index', {
-		users: [
-			{id: 1, name: 'Tom'},
-			{id: 2, name: 'Ca'},
-			{id: 3, name: 'Cua'}
-		]
+		users: users
 	});
 })
-app.get('/products', function(req, res) {
-	res.send('Products loading...');
+// create Search users feature for the website
+app.get('/users/search', function(req, res) {
+	
+	var q = req.query.q;
+	var matchedUsers = users.filter(user => user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1);
+	res.render('users/index', {
+		users: matchedUsers
+	})
 })
 app.listen(3000, function() {
 	console.log('Server started on 3000...');
