@@ -1,7 +1,18 @@
-h1 Here you go
-form(action="/users/search", method="GET")
-	input(type="text", name="q")
-	button Search
-ul
-	each user in users
-		li= user.name
+doctype html
+html
+	head
+		title KnowledgePage
+	body
+		h1 Here you go
+		a(href="/users/create") New users
+		form(action="/users/search", method="GET")
+			input(type="text", id="username", name="q")
+			button Search
+
+		ul
+			each user in users
+				li= user.name
+
+	
+		
+
