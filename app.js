@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-
+var bodyParser = require('body-parser');
 // Init app
 const app = express();
 
@@ -9,6 +9,9 @@ const app = express();
 //load view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function(req, res) {
 	res.render('index', {
@@ -34,6 +37,13 @@ app.get('/users/search', function(req, res) {
 	res.render('users/index', {
 		users: matchedUsers
 	})
+})
+app.get('/users/create', function(req, res) {
+	res.render('users/create');
+});
+app.post('/users/create', function(req, res) {
+	users.push(req.body);
+	res.redirect('/users');
 })
 app.listen(3000, function() {
 	console.log('Server started on 3000...');
