@@ -9,7 +9,9 @@
   "author": "bat man",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "lowdb": "^1.0.0",
     "pug": "^2.0.4"
   },
   "devDependencies": {
