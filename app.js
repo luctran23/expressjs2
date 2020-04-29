@@ -1,6 +1,15 @@
 const express = require('express');
 const path = require('path');
 var bodyParser = require('body-parser');
+var low = require('lowdb');
+var FileSync = require('lowdb/adapters/FileSync');
+
+var adapter = new FileSync('db.json')
+var db = low(adapter);
+
+//set default
+db.defaults({users: [] })
+.write();
 // Init app
 const app = express();
 
@@ -19,21 +28,18 @@ app.get('/', function(req, res) {
 	}); 
 }) 
 
-var users = [
-	{id: 1, name: 'Tom'},
-	{id: 2, name: 'Ca'},
-	{id: 3, name: 'Cua'}
-];
+
 app.get('/users', function(req, res){
 	res.render('users/index', {
-		users: users
+		users: db.get('users').value()
 	});
 })
 // create Search users feature for the website
 app.get('/users/search', function(req, res) {
 	
 	var q = req.query.q;
-	var matchedUsers = users.filter(user => user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1);
+
+	var matchedUsers = db.get('users').value().filter(user => user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1);
 	res.render('users/index', {
 		users: matchedUsers
 	})
@@ -42,7 +48,7 @@ app.get('/users/create', function(req, res) {
 	res.render('users/create');
 });
 app.post('/users/create', function(req, res) {
-	users.push(req.body);
+	db.get('users').push(req.body).write();
 	res.redirect('/users');
 })
 app.listen(3000, function() {
