@@ -47,6 +47,27 @@ app.get('/users/search', function(req, res) {
 app.get('/users/create', function(req, res) {
 	res.render('users/create');
 });
+
+app.get('/users/:id', function(req, res) {
+	var id = parseInt(req.params.id);
+
+	var user = db.get('users').find({id: id}).value();
+
+	res.render('users/view', {
+		user: user
+	});
+});
+
+
+
+
+
+
+
+
+
+
+
 app.post('/users/create', function(req, res) {
 	db.get('users').push(req.body).write();
 	res.redirect('/users');
