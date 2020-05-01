@@ -1,2 +1,6 @@
 1.console.log('req.body') -> It must be console.log(req.body)
 2. res.redirect(path) not req.redirect(path);
+3. View user 
+   + render 1 user not users
+   --> mistake: res.render('users/view', { users: user }) -> fixed: res.render('users/view', { user:user})
+   because id is unique so just { user: user }
