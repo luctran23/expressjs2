@@ -4,3 +4,6 @@
    + render 1 user not users
    --> mistake: res.render('users/view', { users: user }) -> fixed: res.render('users/view', { user:user})
    because id is unique so just { user: user }
+4. inside res.render(path, { x: y}) ---> in pug file, x.name
+
+5. before using, any npm modules must be required e.g: const shortid = require('shortid');
