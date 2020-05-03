@@ -1,19 +1,11 @@
 const express = require('express');
 const path = require('path');
-var shortid = require('shortid');
+
 var bodyParser = require('body-parser');
-var low = require('lowdb');
-var FileSync = require('lowdb/adapters/FileSync');
 
-var adapter = new FileSync('db.json')
-var db = low(adapter);
-
-//set default
-db.defaults({users: [] })
-.write();
+var userRoutes = require('./routes/users_router');
 // Init app
 const app = express();
-
 
 
 //load view engine
@@ -29,42 +21,8 @@ app.get('/', function(req, res) {
 	}); 
 }) 
 
+app.use('/users', userRoutes);
 
-app.get('/users', function(req, res){
-	res.render('users/index', {
-		users: db.get('users').value()
-	});
-})
-// create Search users feature for the website
-app.get('/users/search', function(req, res) {
-	
-	var q = req.query.q;
-
-	var matchedUsers = db.get('users').value().filter(user => user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1);
-	res.render('users/index', {
-		users: matchedUsers
-	})
-})
-app.get('/users/create', function(req, res) {
-	res.render('users/create');
-});
-
-app.get('/users/:id', function(req, res) {
-	var id = req.params.id;
-
-	var user = db.get('users').find({id: id}).value();
-
-	res.render('users/view', {
-		user: user
-	});
-});
-
-
-app.post('/users/create', function(req, res) {
-	req.body.id = shortid.generate();
-	db.get('users').push(req.body).write();
-	res.redirect('/users');
-})
 app.listen(3000, function() {
 	console.log('Server started on 3000...');
 })
