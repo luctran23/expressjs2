@@ -15,6 +15,9 @@ app.set('view engine', 'pug');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use(express.static('views'));
+
+
 app.get('/', function(req, res) {
 	res.render('index', {
 		title: 'Hello World'
