@@ -7,3 +7,7 @@
 4. inside res.render(path, { x: y}) ---> in pug file, x.name
 
 5. before using, any npm modules must be required e.g: const shortid = require('shortid');
+
+6. middleware: app.use(express.static('views')); 
+    not app.use(express.static('users'));
+
